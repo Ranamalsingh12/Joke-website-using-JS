@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jokes App</title>
+</head>
+<style>
+    body {
+        background: #311B92;
+        font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        color: #212121;
+    }
+
+    .container {
+        width: fit-content;
+        height: 160px;
+        background: linear-gradient(to right, #00E5FF, #C6FF00);
+        padding: 30px 40px;
+        text-align: center;
+        border-radius: 55px;
+        border: 2px solid white;
+        margin-top: 70px;
+        margin-left: 30%;
+    }
+
+    .joke {
+        background: linear-gradient(to left, #00E5FF, #C6FF00);
+        color: black;
+        font-weight: bolder;
+        padding: 8px 8px;
+    }
+
+    .btn {
+        position: relative;
+        top: 30px;
+        padding: 2px 9px;
+        background: #00E5FF;
+        color: black;
+        font-weight: bold;
+        border: 2px solid white;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h3>These are the jokes to make your days</h3>
+        <div class="joke" id="joke">Joke are loading..</div>
+        <button id="jokbtn" class="btn">Next Joke</button>
+    </div>
+
+    <script>
+        const jokes = document.querySelector('#joke');
+        const jokbtn = document.querySelector('#jokbtn');
+
+        // const generateJoke = () => {
+        //     fetch('https://backend-omega-seven.vercel.app/api/getjoke')
+        //     .then( res => res.json())
+        //     .then((data) => {
+        //         // data = JSON.stringify(data);
+        //         console.log(data);
+        //         jokes.innerHTML =data.question;
+        //         jokes.innerHTML = data.punchline;
+        //     }).catch(error => {
+        //         console.log(error);
+        //     })
+        // }
+        const generateJoke = async () => {
+            try{
+            const res = await fetch('https://backend-omega-seven.vercel.app/api/getjoke')
+            const data = await res.json();
+            console.log(data);
+            jokes.innerHTML = data.question;
+            }catch(err){
+                console.log(err);
+            }
+            
+        }
+
+
+        jokbtn.addEventListener('click',generateJoke);
+        generateJoke();
+    </script>
+</body>
+</html>
